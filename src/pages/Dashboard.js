@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useStateValue } from '../state/state';
 import Card from '../components/layout/Card';
 import Rudl from 'rudl';
@@ -12,38 +12,17 @@ const widgets = importAll(
   require.context('../components/widgets', false, /\.js$/),
 );
 
-const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min;
-
-function Dashboard(props) {
-  // State
+function Dashboard() {
   const [
-    {
-      cardsWidth,
-      cardsMargin,
-      cardsHeightRange,
-      cardsBorderWidth,
-      dialogBorderWidth,
-      opened,
-    },
+    { cardsWidth, cardsMargin, cardsBorderWidth, dialogBorderWidth, opened },
     dispatch,
   ] = useStateValue();
 
-  // Set cards height
-  const cardsHeight = useMemo(
-    () =>
-      Array.from(Array(widgets.length)).map(() =>
-        getRandomArbitrary(...cardsHeightRange),
-      ),
-    [cardsHeightRange],
-  );
-
-  // Prepare cards Components
   const cards = Array.from(Array(widgets.length)).map((_, index) => {
     return (
       <Card
         key={index}
         width={cardsWidth}
-        height={cardsHeight[index]}
         margin={cardsMargin}
         borderWidth={cardsBorderWidth}
         dialogBorderWidth={dialogBorderWidth}

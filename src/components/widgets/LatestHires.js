@@ -4,7 +4,7 @@ import Widget from '../layout/Widget';
 const Schedule = () => {
   return (
     <Widget heading='Schedule' className='schedule-component'>
-      Today's activies
+      <p>Hel</p>Today's activies
     </Widget>
   );
 };

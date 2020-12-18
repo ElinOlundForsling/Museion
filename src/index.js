@@ -5,8 +5,7 @@ import { initialState, reducer } from './state/layoutReducer';
 import Dashboard from './pages/Dashboard';
 import Sidebar from './components/layout/Sidebar';
 import './stylesheets/App.css';
-// import './stylesheets/dialog-window.css';
-import './stylesheets/gradients.css';
+// import './stylesheets/gradients.css';
 import './stylesheets/widget.css';
 import './stylesheets/sidebar.css';
 

@@ -19,7 +19,7 @@ const dialogBorderWidth = opened => (masterWidth(opened) <= 640 ? 4 : 8);
 
 const masonryCardsWidth = opened => {
   let width = masterWidth(opened);
-  console.log('Opened: ', opened, ' Width: ', width);
+  // console.log('Opened: ', opened, ' Width: ', width);
   let numOfColumns = width > 640 ? 3 : 2;
   return width / numOfColumns - 2;
 };
@@ -27,11 +27,9 @@ const masonryCardsWidth = opened => {
 const LayoutParams = opened => {
   let cardsWidth = masonryCardsWidth(opened);
   cardsWidth = cardsWidth < 200 ? 200 : cardsWidth;
-  console.log('Cardswidth: ', cardsWidth);
-  const cardsHeightRange = [cardsWidth / 2.5, cardsWidth * 1.4];
+  // console.log('Cardswidth: ', cardsWidth);
   return {
     cardsWidth,
-    cardsHeightRange,
     cardsMargin: margin(opened),
     cardsBorderWidth: borderWidth(opened),
     dialogBorderWidth: dialogBorderWidth(opened),

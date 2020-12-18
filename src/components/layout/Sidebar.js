@@ -26,7 +26,7 @@ const Sidebar = () => {
         <li>
           <a href='/'>
             <BiAtom className='sidebar-icon' />
-            &nbsp; Classroom
+            &nbsp; <span>Classroom</span>
           </a>
         </li>
         <li>

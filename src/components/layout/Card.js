@@ -9,7 +9,15 @@ const getGradientNum = () => {
 
 function Card(props) {
   const [visible, setVisible] = useState(true);
-  const { id, margin, width, height, borderWidth, dialogBorderWidth } = props;
+  const {
+    id,
+    margin,
+    width,
+    height,
+    borderWidth,
+    dialogBorderWidth,
+    content,
+  } = props;
   const gradientId = useMemo(() => getGradientNum(), []);
 
   const switchVisibility = () => {
@@ -38,7 +46,7 @@ function Card(props) {
             scale: 0.98,
           }}
           {...props.draggableItem}>
-          <motion.article>{props.content}</motion.article>
+          <motion.article>{content}</motion.article>
         </motion.div>
       </div>
     </DialogWindow>
