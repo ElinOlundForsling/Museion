@@ -15,17 +15,15 @@ const widgets = importAll(
 const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min;
 
 function Dashboard(props) {
-  console.log(widgets);
-
   // State
   const [
     {
-      layout,
       cardsWidth,
       cardsMargin,
       cardsHeightRange,
       cardsBorderWidth,
       dialogBorderWidth,
+      opened,
     },
     dispatch,
   ] = useStateValue();
@@ -60,7 +58,9 @@ function Dashboard(props) {
 
   return (
     <div
-      className='cards-wrapper'
+      className={`card-wrapper
+      ${opened ? 'open' : 'closed'}
+    `}
       style={{
         width: `96vw`,
         maxWidth: `1920px`,
@@ -68,12 +68,11 @@ function Dashboard(props) {
       }}>
       <Rudl
         key='layout-for-pinned-notes'
-        onWidthResize={() => dispatch({ type: layout })}
+        onWidthResize={() => dispatch({ type: 'closed' })}
         transitionDuration={800}
         transitionTimingFunction='cubic-bezier(.42,.2,.23,1.27)'
         ghostTransitionDuration={300}
-        ghostTransitionTimingFunction='cubic-bezier(.42,.2,.23,1.27)'
-        onRearrange={() => console.log('rearranged')}>
+        ghostTransitionTimingFunction='cubic-bezier(.42,.2,.23,1.27)'>
         {cards}
       </Rudl>
     </div>

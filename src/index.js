@@ -1,20 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// State
 import { StateProvider } from './state/state';
 import { initialState, reducer } from './state/layoutReducer';
-// Local components
 import Dashboard from './pages/Dashboard';
-// Styles
-import './styles/App.css';
-import './styles/dialog-window.css';
-import './styles/gradients.css';
-import './styles/widget.css';
+import Sidebar from './components/layout/Sidebar';
+import './stylesheets/App.css';
+// import './stylesheets/dialog-window.css';
+import './stylesheets/gradients.css';
+import './stylesheets/widget.css';
+import './stylesheets/sidebar.css';
 
 function App() {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      <Dashboard />
+      <main className='main'>
+        <Dashboard />
+      </main>
+      <aside>
+        <Sidebar />
+      </aside>
     </StateProvider>
   );
 }

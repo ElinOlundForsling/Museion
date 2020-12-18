@@ -9,15 +9,25 @@ body {
   touch-action: manipulation;
 }
 
+.open {
+  margin-left: 180px;
+}
+
+.closed {
+  margin-left: 60px;
+}
+
 /*************/
 /*** Cards ***/
 .cards-wrapper {
-  margin: 112px auto 72px auto;
-  /* outline: 1px solid hotpink; */
+  margin-top: 112px;
+  margin-bottom: 72px;
+  transition: 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
 }
 .card {
   z-index: 2;
   border-radius: 4px;
+  min-width: 200;
   mix-blend-mode: multiply;
   transition: width 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27),
     height 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27), box-shadow 300ms;

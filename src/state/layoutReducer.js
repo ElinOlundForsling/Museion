@@ -1,49 +1,52 @@
-const masterWidth = () => {
+const masterWidth = opened => {
   let width = Math.round(window.innerWidth - (window.innerWidth / 100) * 4);
-  return width > 1900 ? 1900 : width;
+  width = width > 1900 ? 1900 : width;
+  return width - sidebarWidth(opened);
 };
 
-const margin = () => {
-  if (masterWidth() <= 960) return 4;
+const sidebarWidth = opened => {
+  return opened ? 300 : 60;
+};
+
+const margin = opened => {
+  if (masterWidth(opened) <= 960) return 4;
   else return 12;
 };
 
-const borderWidth = () => (masterWidth() <= 640 ? 2 : 4);
+const borderWidth = opened => (masterWidth(opened) <= 640 ? 2 : 4);
 
-const dialogBorderWidth = () => (masterWidth() <= 640 ? 4 : 8);
+const dialogBorderWidth = opened => (masterWidth(opened) <= 640 ? 4 : 8);
 
-const masonryCardsWidth = () => {
-  let width = masterWidth();
-  let numOfColumns = 4;
-  if (width < 450) {
-    numOfColumns = 1;
-  } else if (width < 640) {
-    numOfColumns = 2;
-  } else if (width < 1280) {
-    numOfColumns = 3;
-  }
+const masonryCardsWidth = opened => {
+  let width = masterWidth(opened);
+  console.log('Opened: ', opened, ' Width: ', width);
+  let numOfColumns = width > 640 ? 3 : 2;
   return width / numOfColumns - 2;
 };
 
-const masonryLayoutParams = () => {
-  const cardsWidth = masonryCardsWidth();
+const LayoutParams = opened => {
+  let cardsWidth = masonryCardsWidth(opened);
+  cardsWidth = cardsWidth < 200 ? 200 : cardsWidth;
+  console.log('Cardswidth: ', cardsWidth);
   const cardsHeightRange = [cardsWidth / 2.5, cardsWidth * 1.4];
   return {
-    layout: 'masonry',
     cardsWidth,
     cardsHeightRange,
-    cardsMargin: margin(),
-    cardsBorderWidth: borderWidth(),
-    dialogBorderWidth: dialogBorderWidth(),
+    cardsMargin: margin(opened),
+    cardsBorderWidth: borderWidth(opened),
+    dialogBorderWidth: dialogBorderWidth(opened),
+    opened,
   };
 };
 
-export const initialState = masonryLayoutParams();
+export const initialState = LayoutParams(false);
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case 'masonry':
-      return masonryLayoutParams();
+    case 'open':
+      return LayoutParams(true);
+    case 'closed':
+      return LayoutParams(false);
     default:
       return initialState;
   }

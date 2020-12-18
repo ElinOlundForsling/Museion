@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from '../layout/Widget';
 
 const Todo = () => {
-  console.log('Todooo');
   return (
     <Widget
       heading='Todo'
