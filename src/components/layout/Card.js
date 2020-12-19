@@ -9,15 +9,7 @@ const getGradientNum = () => {
 
 function Card(props) {
   const [visible, setVisible] = useState(true);
-  const {
-    id,
-    margin,
-    width,
-    height,
-    borderWidth,
-    dialogBorderWidth,
-    content,
-  } = props;
+  const { id, margin, width, borderWidth, dialogBorderWidth, content } = props;
   const gradientId = useMemo(() => getGradientNum(), []);
 
   const switchVisibility = () => {
@@ -34,7 +26,6 @@ function Card(props) {
           className={`card g-${gradientId}`}
           id={id}
           style={{
-            height: `${height - margin * 2}px`,
             width: `${width - margin * 2}px`,
             '--opacity': visible ? 1 : 0,
             '--card-box-shadow': `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2)`,

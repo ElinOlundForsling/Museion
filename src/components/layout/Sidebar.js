@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStateValue } from '../../state/state';
 import { RiDashboardLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import { VscAccount } from 'react-icons/vsc';
 import {
   BiSend,
@@ -18,46 +19,46 @@ const Sidebar = () => {
       onMouseLeave={() => dispatch({ type: 'closed' })}>
       <ul className='side-menu'>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <RiDashboardLine className='sidebar-icon' />
             &nbsp; Dashboard
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <BiAtom className='sidebar-icon' />
             &nbsp; <span>Classroom</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <BiSend className='sidebar-icon' />
             &nbsp; Submit Work
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <BiBold className='sidebar-icon' />
             &nbsp; Grades
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <BiCalendarPlus className='sidebar-icon' />
             &nbsp; Calendar
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <VscAccount className='sidebar-icon' />
             &nbsp; Profile
-          </a>
+          </Link>
         </li>
         <li>
-          <a href='/'>
+          <Link to='/'>
             <BiCubeAlt className='sidebar-icon' />
             &nbsp; Teacher's panel
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

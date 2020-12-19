@@ -9,7 +9,6 @@ function DialogWindow(props) {
 
   useEffect(() => {
     const element = document.getElementById(node.id);
-    // Set and update card's size
     const updateCardParams = () => {
       setCardHeight(`${element.offsetHeight}px`);
       setCardWidth(`${element.offsetWidth}px`);
