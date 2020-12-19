@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function DialogWindow(props) {
+function CardTransform(props) {
   const [cardWidth, setCardWidth] = useState();
   const [cardHeight, setCardHeight] = useState();
   const [cardPosX, setCardPosX] = useState();
@@ -20,7 +20,6 @@ function DialogWindow(props) {
     return () => window.removeEventListener('resize', updateCardParams);
   }, [node.id]);
 
-  // Set and update card's position
   useEffect(() => {
     const element = document.getElementById(node.id);
     var rect = element.getBoundingClientRect();
@@ -44,4 +43,4 @@ function DialogWindow(props) {
   );
 }
 
-export default DialogWindow;
+export default CardTransform;

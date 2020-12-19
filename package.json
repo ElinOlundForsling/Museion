@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "core-js": "^3.8.1",
+    "firebase-tools": "^9.0.1",
     "framer-motion": "^1.7.0",
     "react": "^16.12.0",
+    "react-combine-reducers": "^1.0.4",
     "react-dom": "^16.12.0",
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",

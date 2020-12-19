@@ -18,8 +18,6 @@ body {
   margin-left: 60px;
 }
 
-/*************/
-/*** Cards ***/
 .cards-wrapper {
   margin-top: 112px;
   margin-bottom: 72px;
@@ -39,9 +37,7 @@ body {
 .card.circle {
   border-radius: 50%;
 }
-/* .card:hover {
-  box-shadow: var(--card-box-shadow-hover);
-} */
+
 .card:active:hover {
   cursor: grabbing;
 }

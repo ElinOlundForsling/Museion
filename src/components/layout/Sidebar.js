@@ -12,6 +12,7 @@ import {
 } from 'react-icons/bi';
 
 const Sidebar = () => {
+  // eslint-disable-next-line
   const [{}, dispatch] = useStateValue();
   return (
     <div
