@@ -35,15 +35,15 @@ const LayoutParams = opened => {
   };
 };
 
-export const initialState = LayoutParams(false);
+export const initialLayoutState = LayoutParams(false);
 
-export const reducer = (state, action) => {
+export const layoutReducer = (state, action) => {
   switch (action.type) {
     case 'open':
       return LayoutParams(true);
     case 'closed':
       return LayoutParams(false);
     default:
-      return initialState;
+      return initialLayoutState;
   }
 };

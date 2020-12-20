@@ -1,7 +1,5 @@
 import combineReducers from 'react-combine-reducers';
-import layoutReducer from './layoutReducer';
-import authReducer from './authReducer';
-import LayoutParams from './layoutReducer';
+import { layoutReducer, initialLayoutState } from './layoutReducer';
 import authReducer from './authReducer';
 
 const initialAuthState = {
@@ -10,7 +8,7 @@ const initialAuthState = {
 };
 
 const [reducer, initialState] = combineReducers({
-  layout: [layoutReducer, LayoutParams],
+  layout: [layoutReducer, initialLayoutState],
   auth: [authReducer, initialAuthState],
 });
 
