@@ -27,6 +27,7 @@ function CardTransform(props) {
     setCardPosY(rect.top);
     setCardHeight(`${element.offsetHeight}px`);
     setCardWidth(`${element.offsetWidth}px`);
+    // console.log('transform height: ', element.offsetHeight);
   }, [props, node.id]);
 
   return (

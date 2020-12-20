@@ -10,8 +10,14 @@ body {
   touch-action: manipulation;
 }
 
+.main {
+  transition: 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
+  width: 100%;
+  padding: 20px;
+}
+
 .open {
-  margin-left: 180px;
+  margin-left: 300px;
 }
 
 .closed {
@@ -21,7 +27,6 @@ body {
 .cards-wrapper {
   margin-top: 112px;
   margin-bottom: 72px;
-  transition: 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
 }
 .card {
   z-index: 2;

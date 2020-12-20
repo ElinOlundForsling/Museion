@@ -9,7 +9,7 @@
   list-style-type: none;
   background: #f7a29e;
   overflow: hidden;
-  transition: width 0.5s;
+  transition: width 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
 }
 
 .side-menu:hover {

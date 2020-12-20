@@ -14,7 +14,9 @@ const widgets = importAll(
 
 function Dashboard() {
   const [
-    { cardsWidth, cardsMargin, cardsBorderWidth, dialogBorderWidth, opened },
+    {
+      layout: { cardsWidth, cardsMargin, cardsBorderWidth, dialogBorderWidth },
+    },
     dispatch,
   ] = useStateValue();
 
@@ -37,9 +39,7 @@ function Dashboard() {
 
   return (
     <div
-      className={`card-wrapper
-      ${opened ? 'open' : 'closed'}
-    `}
+      className='card-wrapper'
       style={{
         width: `96vw`,
         maxWidth: `1920px`,

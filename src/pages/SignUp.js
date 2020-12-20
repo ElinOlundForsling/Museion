@@ -98,7 +98,7 @@ const SignUp = () => {
           )}
           <button>Sign Up</button>
           <p className='message'>
-            Already registered? <Link to='/signin'>Sign In</Link>
+            Already registered? <Link to='/'>Sign In</Link>
           </p>
         </form>
       </div>

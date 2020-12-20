@@ -23,18 +23,18 @@ const Sidebar = () => {
   // eslint-disable-next-line
   const [{}, dispatch] = useStateValue();
   const [user, loading, error] = useAuthState(firebase.auth());
-  if (error) {
-    return;
-  }
+
   return (
     <div
       onMouseOver={() => dispatch({ type: 'open' })}
       onMouseLeave={() => dispatch({ type: 'closed' })}>
-      <div>
-        {loading && 'loading...'}
-        {user && user.firstName}
-      </div>
       <ul className='side-menu'>
+        {/* <li>
+          <div>
+            {loading && 'loading...'}
+            {user && user.email}
+          </div>
+        </li> */}
         <li>
           <Link to='/dashboard'>
             <RiDashboardLine className='sidebar-icon' />
@@ -72,7 +72,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to='/profile'>
+          <Link to={user && `/profile/${user.uid}`}>
             <VscAccount className='sidebar-icon' />
             &nbsp; Profile
           </Link>
