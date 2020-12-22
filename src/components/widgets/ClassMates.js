@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Widget from '../layout/Widget';
+import { getClassmates } from '../../state/actions/classActions';
+import { useStateValue } from '../../state/state';
 
 const Classmates = () => {
+  const [
+    {
+      profile: { classN },
+      class: { classmates },
+    },
+    dispatch,
+  ] = useStateValue();
+
+  useEffect(() => {
+    if (classN) {
+      getClassmates(dispatch, classN);
+    }
+  }, [classN]);
+
   return (
     <Widget heading='Classmates' className='classmates-component'>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
+      {classmates && (
+        <ul>
+          {classmates.map(user => {
+            return (
+              <li key={user.id}>
+                <img
+                  src={user.imgUrl}
+                  alt={user.firstName}
+                  className='img-tiny'
+                />
+                {user.firstName} {user.lastName}
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </Widget>
   );
 };

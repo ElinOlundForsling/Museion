@@ -62,10 +62,10 @@ export const updateBio = (dispatch, id, bio) => {
 
 export const updateImgUrl = (dispatch, id, img) => {
   dispatch({ type: 'profile_loading' });
-  const uploadTask = storage.ref(`/profilePictures/${img.name}`).put(img);
+  const uploadTask = storage.ref(`/${id}/profile_images/${img.name}`).put(img);
   uploadTask.on('state_changed', console.log, console.error, () => {
     storage
-      .ref('profilePictures')
+      .ref(id + '/profile_images')
       .child(img.name)
       .getDownloadURL()
       .then(url => {

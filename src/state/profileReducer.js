@@ -1,7 +1,7 @@
 export const initialProfileState = {
   firstName: '',
   lastName: '',
-  class: '',
+  classN: '',
   bio: '',
   imgUrl: '',
   notes: [],
@@ -18,7 +18,7 @@ export const profileReducer = (state, action) => {
         ...state,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
-        class: action.payload.class,
+        classN: action.payload.class,
         bio: action.payload.bio || state.bio,
         imgUrl: action.payload.imgUrl || state.imgUrl,
         profileLoading: false,
@@ -40,7 +40,7 @@ export const profileReducer = (state, action) => {
         profileLoading: false,
         profileError: null,
       };
-      case 'update_notes':
+    case 'update_notes':
       return {
         ...state,
         notes: action.payload,

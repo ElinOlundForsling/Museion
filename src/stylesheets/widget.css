@@ -17,3 +17,15 @@
 .widget-content {
   font-size: 0.9rem;
 }
+
+.widget ul {
+  padding-inline-start: 0px;
+}
+
+.widget li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+}

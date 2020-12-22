@@ -1,17 +1,18 @@
 export const initialClassState = {
   classes: [],
-  classMates: [],
+  classmates: [],
   classError: '',
 };
 
 export const classReducer = (state, action) => {
   switch (action.type) {
-    case 'CLASS_ERROR':
+    case 'class_error':
       return { ...state, classError: action.payload };
-    case 'GET_CLASSES':
+    case 'get_classes':
       return { ...state, classes: action.payload, classError: '' };
-    case 'GET_CLASSMATES':
-      return { ...state, classMates: action.payload, classError: '' };
+    case 'get_classmates':
+      console.log(action.payload);
+      return { ...state, classmates: action.payload, classError: '' };
     default:
       return { ...state };
   }
