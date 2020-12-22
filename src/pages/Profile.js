@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from '../config/firebase';
 import Page from '../components/layout/Page';
 import { useStateValue } from '../state/state';
-import { updateBio, updateImgUrl } from '../hooks/updateProfile';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { updateBio, updateImgUrl } from '../state/actions/profileActions';
+import firebase from '../config/firebase';
 
 const Profile = () => {
+  const [tempBio, setTempBio] = useState('');
+  const [user] = useAuthState(firebase.auth());
   const notes = [];
   const profileId = useParams().userId;
-  const [user] = useAuthState(firebase.auth());
-  const [value, loading, error] = useDocument(
-    firebase.firestore().collection('users').doc(profileId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    },
-  );
   const [
     {
       profile: { firstName, lastName, imgUrl, bio },
+      auth: { authId },
     },
     dispatch,
   ] = useStateValue();
+
+  useEffect(() => {
+    setTempBio(bio);
+  }, [bio]);
+
+  const handleChangeBio = e => {
+    setTempBio(e.target.value);
+  };
+
+  const handleChangeImg = e => {
+    updateImgUrl(dispatch, user.uid, e.target.files[0]);
+  };
+
+  const handleSubmitBio = e => {
+    e.preventDefault();
+    updateBio(dispatch, user.uid, tempBio);
+  };
 
   return (
     <Page heading='Profile'>
@@ -42,12 +54,20 @@ const Profile = () => {
               alt='your profile image'
               className='img-mid-round'
             />
-            <input type='file' name='file' id='file' class='form-inputfile' />
-            <label for='file'>New Profile Image</label>
+            <input
+              type='file'
+              name='file'
+              id='file'
+              className='form-inputfile'
+              onChange={handleChangeImg}
+            />
+            <label htmlFor='file'>New Profile Image</label>
             <h5>{firstName && firstName + ' ' + lastName}</h5>
-            <form className='form'>
+            <form className='form' onSubmit={handleSubmitBio}>
               <textarea
-                placeholder={bio ? bio : 'Enter a short bio...'}></textarea>
+                placeholder={bio ? bio : 'Enter a short bio...'}
+                value={tempBio}
+                onChange={handleChangeBio}></textarea>
               <button>Update bio</button>
             </form>
           </article>

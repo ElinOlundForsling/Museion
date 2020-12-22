@@ -1,6 +1,6 @@
-import firebase from '../config/firebase';
+import firebase from '../../config/firebase';
 
-export const signUp = userData => {
+export const signUp = (dispatch, userData) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(userData.email, userData.password)
@@ -12,10 +12,10 @@ export const signUp = userData => {
       });
     })
     .then(() => {
-      // dispatch({ type: 'SIGNUP_SUCCESS' });
+      dispatch({ type: 'sign_up' });
     })
     .catch(error => {
       console.error(error);
-      // dispatch({ type: 'SIGNUP_ERROR', error });
+      dispatch({ type: 'auth_error', error });
     });
 };

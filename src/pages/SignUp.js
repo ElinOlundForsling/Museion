@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from '../config/firebase';
-import { signUp } from '../state/authActions';
+import { signUp } from '../state/actions/authActions';
+import { useStateValue } from '../state/state';
 
 const SignUp = () => {
   const [value, loading, error] = useCollection(
@@ -11,6 +12,8 @@ const SignUp = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     },
   );
+
+  const [{}, dispatch] = useStateValue();
 
   const [credentials, setCredentials] = useState({
     email: '',
@@ -30,7 +33,7 @@ const SignUp = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    signUp(credentials);
+    signUp(dispatch, credentials);
   };
 
   return (

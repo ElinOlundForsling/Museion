@@ -23,11 +23,6 @@ const SignIn = () => {
     }));
   };
 
-  if (user) {
-    // TODO: Add auth to state
-    return <Redirect to='/dashboard' />;
-  }
-
   const handleSubmit = e => {
     e.preventDefault();
     signIn(credentials.email, credentials.password);
@@ -36,6 +31,7 @@ const SignIn = () => {
   return (
     <div className='form-container'>
       <div className='form'>
+        {user && <Redirect to='/dashboard' />}
         {loading && <p className='message'>Signing in...</p>}
         {error && <p className='message'>Error signing in</p>}
         <form className='login-form' onSubmit={handleSubmit}>

@@ -25,6 +25,20 @@ export const profileReducer = (state, action) => {
       };
     case 'profile_loading':
       return { ...state, profileLoading: true, profileError: null };
+    case 'update_bio':
+      return {
+        ...state,
+        bio: action.payload,
+        profileLoading: false,
+        profileError: null,
+      };
+    case 'update_imgUrl':
+      return {
+        ...state,
+        imgUrl: action.payload,
+        profileLoading: false,
+        profileError: null,
+      };
     default:
       return { ...state };
   }

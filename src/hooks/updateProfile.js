@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useStateValue } from '../state/state';
 import firebase from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-export const UpdateBio = () => {
+const UpdateBio = bio => {
   const [user] = useAuthState(firebase.auth());
   const [{}, dispatch] = useStateValue();
   useEffect(() => {
@@ -12,19 +12,23 @@ export const UpdateBio = () => {
       const db = firebase.firestore();
       db.collection('users')
         .doc(user.uid)
-        .get()
+        .set(
+          {
+            bio,
+          },
+          { merge: true },
+        )
         .then(function (doc) {
-          if (doc.exists) {
-            dispatch({ type: 'get_profile', payload: doc.data() });
-          } else {
-            dispatch({ type: 'profile_error', payload: 'No profile found' });
-          }
+          console.log(doc);
         })
         .catch(function (error) {
-          dispatch({ type: 'profile_error', payload: 'Error getting profile' });
+          dispatch({ type: 'profile_error', payload: 'Error updating bio' });
         });
     }
   }, [user]);
+  return user;
 };
 
-export const UpdateImgUrl = () => {};
+const UpdateImgUrl = () => {};
+
+export { UpdateBio, UpdateImgUrl };

@@ -29,10 +29,10 @@ function App() {
       ${opened ? 'open' : 'closed'}
     `}>
         <Switch>
-          <PublicRoute component={SignIn} restricted={false} path='/' exact />
+          <PublicRoute component={SignIn} restricted={true} path='/' exact />
           <PublicRoute
             component={SignUp}
-            restricted={false}
+            restricted={true}
             path='/signup'
             exact
           />
