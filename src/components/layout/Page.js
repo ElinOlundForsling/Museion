@@ -7,11 +7,11 @@ const getGradientNum = () => {
 const Widget = props => {
   const gradientId = useMemo(() => getGradientNum(), []);
   return (
-    <div className={`widget ${props.className}`} style={props.style}>
-      <div className={`widget-title g-${gradientId}`}>
-        <h5>{props.heading}</h5>
+    <div className='page'>
+      <div className={`page-title g-${gradientId}`}>
+        <h2>{props.heading}</h2>
       </div>
-      <article className='widget-content'>{props.children}</article>
+      <article className='page-content'>{props.children}</article>
     </div>
   );
 };

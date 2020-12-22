@@ -1,7 +1,8 @@
 import React from 'react';
+import Page from '../components/layout/Page';
 
 const Messages = () => {
-  return <div>Messages</div>;
+  return <Page heading='Messages'>Lorem ipsum...</Page>;
 };
 
 export default Messages;

@@ -1,0 +1,21 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-article {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 20px;
+  margin: 20px;
+}
+
+.profile-notes {
+  flex: 3;
+}
+
+.profile-sidebar {
+  flex: 1;
+}

@@ -12,29 +12,59 @@ import {
   BiCubeAlt,
   BiLogOut,
 } from 'react-icons/bi';
+import { BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import firebase from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import useProfile from '../../hooks/useProfile';
 
 const signOut = () => {
   firebase.auth().signOut();
 };
 
 const Sidebar = () => {
-  // eslint-disable-next-line
-  const [{}, dispatch] = useStateValue();
-  const [user, loading, error] = useAuthState(firebase.auth());
+  const [user] = useAuthState(firebase.auth());
+  useProfile();
+  const [
+    {
+      profile: { firstName, imgUrl, profileLoading },
+      layout: { opened },
+    },
+    dispatch,
+  ] = useStateValue();
 
   return (
     <div
       onMouseOver={() => dispatch({ type: 'open' })}
       onMouseLeave={() => dispatch({ type: 'closed' })}>
       <ul className='side-menu'>
-        {/* <li>
-          <div>
-            {loading && 'loading...'}
-            {user && user.email}
-          </div>
-        </li> */}
+        <li>
+          <table>
+            <tbody>
+              <tr>
+                <td rowSpan='2'>
+                  {opened ? (
+                    <BsChevronBarLeft className='side-menu-icon' />
+                  ) : (
+                    <BsChevronBarRight className='side-menu-icon' />
+                  )}
+                </td>
+                <td style={{ width: '200px' }}>
+                  <img
+                    src={imgUrl ? imgUrl : '/img/astronaut.png'}
+                    alt='your profile image'
+                    className='img-sidebar'
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {profileLoading && 'loading...'}
+                  {firstName && firstName}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
         <li>
           <Link to='/dashboard'>
             <RiDashboardLine className='sidebar-icon' />
@@ -72,7 +102,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to={user && `/profile/${user.uid}`}>
+          <Link to={user ? `/profile/${user.uid}` : '/profile'}>
             <VscAccount className='sidebar-icon' />
             &nbsp; Profile
           </Link>

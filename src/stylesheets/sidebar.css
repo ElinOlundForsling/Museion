@@ -9,6 +9,7 @@
   list-style-type: none;
   background: #f7a29e;
   overflow: hidden;
+  z-index: 50;
   transition: width 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
 }
 
@@ -38,4 +39,15 @@
 .sidebar-icon {
   font-size: 1.2rem;
   margin: 20px;
+}
+
+.side-menu-icon {
+  font-size: 3rem;
+  margin: 5px;
+  color: #fff;
+}
+
+.side-menu td {
+  font-size: 1.2rem;
+  text-align: center;
 }

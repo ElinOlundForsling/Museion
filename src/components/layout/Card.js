@@ -7,17 +7,14 @@ const getGradientNum = () => {
 };
 
 function Card(props) {
-  const { id, margin, width, borderWidth, dialogBorderWidth, content } = props;
+  const { id, margin, width, borderWidth, content } = props;
   const gradientId = useMemo(() => getGradientNum(), []);
 
   return (
-    <CardTransform
-      node={{ id, gradientId }}
-      borderWidth={dialogBorderWidth}
-      cardBorderWidth={borderWidth}>
+    <CardTransform node={{ id, gradientId }}>
       <div style={{ margin: `${margin}px` }}>
         <motion.div
-          className={`card g-${gradientId}`}
+          className={`card`}
           id={id}
           style={{
             width: `${width - margin * 2}px`,

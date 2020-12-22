@@ -30,7 +30,6 @@ const SignUp = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(credentials);
     signUp(credentials);
   };
 

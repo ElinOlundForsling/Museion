@@ -1,7 +1,8 @@
 import React from 'react';
+import Page from '../components/layout/Page';
 
 const SubmitWork = () => {
-  return <div>Submit Work</div>;
+  return <Page heading='Submit work'>Lorem ipsum...</Page>;
 };
 
 export default SubmitWork;

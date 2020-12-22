@@ -1,0 +1,14 @@
+.img-mid-round {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  align-self: center;
+  margin: 10px;
+}
+
+.img-sidebar {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  align-self: center;
+}

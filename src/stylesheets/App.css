@@ -6,14 +6,20 @@ body {
   color: #3b3f49;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
   overflow-x: hidden;
   touch-action: manipulation;
 }
 
+h5 {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
 .main {
   transition: 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27);
-  width: 100%;
   padding: 20px;
+  margin: auto;
 }
 
 .open {

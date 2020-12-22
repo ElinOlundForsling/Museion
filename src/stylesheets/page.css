@@ -1,0 +1,12 @@
+.page-title {
+  border-radius: 10px;
+}
+
+.page-title h2 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-top: 0px;
+  margin-left: 15px;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+}

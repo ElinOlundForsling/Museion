@@ -15,18 +15,12 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import PublicRoute from './components/routers/PublicRoute';
 import PrivateRoute from './components/routers/PrivateRoute';
-import './stylesheets/App.css';
-// import './stylesheets/gradients.css';
-import './stylesheets/widget.css';
-import './stylesheets/sidebar.css';
-import './stylesheets/form.css';
 
 function App() {
   const [
     {
       layout: { opened },
     },
-    dispatch,
   ] = useStateValue();
   return (
     <Router>

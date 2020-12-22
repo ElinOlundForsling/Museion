@@ -3,10 +3,16 @@
 }
 
 .widget-title {
-  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.widget-title h5 {
+  margin-top: 0px;
+  margin-left: 15px;
+  padding: 10px;
   font-family: 'Montserrat', sans-serif;
 }
 
-.widget-text {
+.widget-content {
   font-size: 0.9rem;
 }

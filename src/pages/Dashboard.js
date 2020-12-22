@@ -15,10 +15,20 @@ const widgets = importAll(
 function Dashboard() {
   const [
     {
-      layout: { cardsWidth, cardsMargin, cardsBorderWidth, dialogBorderWidth },
+      layout: {
+        cardsWidth,
+        cardsMargin,
+        cardsBorderWidth,
+        dialogBorderWidth,
+        opened,
+      },
     },
     dispatch,
   ] = useStateValue();
+
+  const wrapperWidth = () => {
+    return opened ? window.innerWidth - 340 : window.innerWidth - 100;
+  };
 
   const cards = Array.from(Array(widgets.length)).map((_, index) => {
     return (
@@ -41,9 +51,10 @@ function Dashboard() {
     <div
       className='card-wrapper'
       style={{
-        width: `96vw`,
+        width: wrapperWidth(),
         maxWidth: `1920px`,
         overflow: 'hidden',
+        transition: '1',
       }}>
       <Rudl
         key='layout-for-pinned-notes'

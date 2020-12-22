@@ -1,7 +1,8 @@
 import React from 'react';
+import Page from '../components/layout/Page';
 
 const Grades = () => {
-  return <div>Grades</div>;
+  return <Page heading='Grades'>Lorem ipsum...</Page>;
 };
 
 export default Grades;

@@ -8,5 +8,4 @@ export const getClasses = async () => {
     const data = doc.data();
     return { ...data, name: doc.id };
   });
-  console.log(data);
 };
