@@ -8,7 +8,6 @@ import Calender from './pages/Calender';
 import Grades from './pages/Grades';
 import Profile from './pages/Profile';
 import TeachersPanel from './pages/TeachersPanel';
-import Chat from './pages/Chat';
 import Messages from './pages/Messages';
 import SubmitWork from './pages/SubmitWork';
 import SignUp from './pages/SignUp';
@@ -38,8 +37,7 @@ function App() {
           />
           <PrivateRoute component={Dashboard} path='/dashboard' exact />
           <PrivateRoute component={Profile} path='/profile/:userId' />
-          <PrivateRoute component={Messages} path='/messages' exact />
-          <PrivateRoute component={Chat} path='/chat/:chatId' />
+          <PrivateRoute component={Messages} path='/messages/:id' />
           <PrivateRoute component={Classroom} path='/classroom' exact />
           <PrivateRoute component={Calender} path='/calender' exact />
           <PrivateRoute component={Grades} path='/grades' exact />

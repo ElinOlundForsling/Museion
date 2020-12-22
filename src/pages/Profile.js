@@ -46,9 +46,9 @@ const Profile = () => {
 
   return (
     <Page heading='Profile'>
-      <div className='profile'>
-        <section className='profile-notes profile-section'>
-          <article className='profile-article'>
+      <div className='page-content'>
+        <section className='page-main page-section'>
+          <article className='page-article'>
             <form className='form' onSubmit={handleSubmitNote}>
               <textarea onChange={handleChangeNote}></textarea>
               <button type='submit'>Add note</button>
@@ -57,14 +57,14 @@ const Profile = () => {
           {notes &&
             notes.map(note => {
               return (
-                <article key={note.id} className='profile-article'>
+                <article key={note.id} className='page-article'>
                   {note.text}
                 </article>
               );
             })}
         </section>
-        <section className='profile-sidebar profile-section'>
-          <article className='profile-article'>
+        <section className='page-sidebar page-section'>
+          <article className='page-article'>
             <img
               src={imgUrl ? imgUrl : '/img/astronaut.png'}
               alt='Your Avatar'

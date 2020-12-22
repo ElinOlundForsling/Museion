@@ -9,7 +9,6 @@ import './stylesheets/page.css';
 import './stylesheets/widget.css';
 import './stylesheets/sidebar.css';
 import './stylesheets/form.css';
-import './stylesheets/profile.css';
 import './stylesheets/blueprints/user-image.css';
 
 ReactDOM.render(

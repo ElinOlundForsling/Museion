@@ -11,7 +11,7 @@ const Widget = props => {
       <div className={`page-title g-${gradientId}`}>
         <h2>{props.heading}</h2>
       </div>
-      <article className='page-content'>{props.children}</article>
+      <div className='page-children'>{props.children}</div>
     </div>
   );
 };

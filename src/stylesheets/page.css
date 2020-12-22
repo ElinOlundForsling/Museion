@@ -10,3 +10,29 @@
   padding: 20px;
   font-family: 'Montserrat', sans-serif;
 }
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-article {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 20px;
+  margin: 20px;
+}
+
+.page-centered {
+  justify-content: center;
+}
+
+.page-main {
+  flex: 3;
+}
+
+.page-sidebar {
+  flex: 1;
+}

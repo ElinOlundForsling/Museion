@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Widget from '../layout/Widget';
+import { Link } from 'react-router-dom';
 import { getClassmates } from '../../state/actions/classActions';
 import { useStateValue } from '../../state/state';
 
@@ -25,12 +26,14 @@ const Classmates = () => {
           {classmates.map(user => {
             return (
               <li key={user.id}>
-                <img
-                  src={user.imgUrl}
-                  alt={user.firstName}
-                  className='img-tiny'
-                />
-                {user.firstName} {user.lastName}
+                <Link to={`/messages/${user.id}`}>
+                  <img
+                    src={user.imgUrl}
+                    alt={user.firstName}
+                    className='img-tiny'
+                  />
+                  {user.firstName} {user.lastName}
+                </Link>
               </li>
             );
           })}
