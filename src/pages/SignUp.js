@@ -13,7 +13,12 @@ const SignUp = () => {
     },
   );
 
-  const [{}, dispatch] = useStateValue();
+  const [
+    {
+      auth: { authError },
+    },
+    dispatch,
+  ] = useStateValue();
 
   const [credentials, setCredentials] = useState({
     email: '',
@@ -38,6 +43,7 @@ const SignUp = () => {
 
   return (
     <div className='form-container'>
+      {authError && authError}
       <div className='form'>
         <form className='register-form' onSubmit={handleSubmit}>
           <input

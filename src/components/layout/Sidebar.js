@@ -15,15 +15,9 @@ import {
 import { BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import firebase from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import useProfile from '../../hooks/useProfile';
-
-const signOut = () => {
-  firebase.auth().signOut();
-};
 
 const Sidebar = () => {
   const [user] = useAuthState(firebase.auth());
-  useProfile();
   const [
     {
       profile: { firstName, imgUrl, profileLoading },
@@ -31,6 +25,12 @@ const Sidebar = () => {
     },
     dispatch,
   ] = useStateValue();
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(dispatch({ type: 'sign_out' }));
+  };
 
   return (
     <div

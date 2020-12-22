@@ -31,7 +31,7 @@ const useProfile = () => {
         .catch(function (error) {
           setLoading(false);
           setError('Server Error');
-          dispatch({ type: 'profile_error', payload: 'Error getting profile' });
+          dispatch({ type: 'profile_error', payload: `Error getting profile: ${error}` });
         });
     }
   }, [user]);

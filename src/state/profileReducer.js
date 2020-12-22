@@ -4,6 +4,7 @@ export const initialProfileState = {
   class: '',
   bio: '',
   imgUrl: '',
+  notes: [],
   profileError: null,
   profileLoading: false,
 };
@@ -36,6 +37,13 @@ export const profileReducer = (state, action) => {
       return {
         ...state,
         imgUrl: action.payload,
+        profileLoading: false,
+        profileError: null,
+      };
+      case 'update_notes':
+      return {
+        ...state,
+        notes: action.payload,
         profileLoading: false,
         profileError: null,
       };
