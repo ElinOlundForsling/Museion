@@ -69,14 +69,17 @@ export const updateImgUrl = (dispatch, id, img) => {
       .child(img.name)
       .getDownloadURL()
       .then(url => {
-        firebase.firestore().collection('users').doc(id).set(
-          {
-            imgUrl: url,
-          },
-          { merge: true },
-        );
-        return url
-          .then(url => dispatch({ type: 'update_img_url', payload: url }))
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(id)
+          .set(
+            {
+              imgUrl: url,
+            },
+            { merge: true },
+          )
+          .then(dispatch({ type: 'update_img_url', payload: url }))
           .catch(error => dispatch({ type: 'profile_error', payload: error }));
       })
       .catch(error => dispatch({ type: 'profile_error', payload: error }));

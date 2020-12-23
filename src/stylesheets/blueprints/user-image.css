@@ -11,6 +11,7 @@
   width: 100px;
   border-radius: 50px;
   align-self: center;
+  justify-self: center;
 }
 
 .img-tiny {

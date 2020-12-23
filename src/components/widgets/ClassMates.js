@@ -28,7 +28,7 @@ const Classmates = () => {
               <li key={user.id}>
                 <Link to={`/messages/${user.id}`}>
                   <img
-                    src={user.imgUrl}
+                    src={user.imgUrl ? user.imgUrl : '/img/astronaut.png'}
                     alt={user.firstName}
                     className='img-tiny'
                   />

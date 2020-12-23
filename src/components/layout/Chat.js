@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useStateValue } from '../../state/state';
 import {
   getMessagesListener,
@@ -34,21 +34,48 @@ const Chat = ({ chatId, userId }) => {
         payload: 'Cannot send message. Refresh the page and try again please.',
       });
     }
+    setMessage('');
   };
   const handleChange = e => {
     setMessage(e.target.value);
   };
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(scrollToBottom, [messages]);
+
   return (
     <div className='chat-window'>
-      {messages &&
-        messages.map(msg => {
-          return (
-            <div className='chat-msg' key={msg.id}>
-              {msg.text}
-            </div>
-          );
-        })}
+      {messages ? (
+        <div className='chat-message-container'>
+          {messages.map(msg => {
+            return (
+              <div className='chat-msg-box' key={msg.date}>
+                {msg.senderId !== authId && (
+                  <img src={msg.senderImgUrl} className='img-tiny' />
+                )}
+                <div
+                  className={`chat-msg ${
+                    msg.senderId === authId ? 'sender-msg' : 'recepient-msg'
+                  }`}
+                  key={msg.id}>
+                  {msg.text}
+                </div>
+                {msg.senderId === authId && (
+                  <img src={msg.senderImgUrl} className='img-tiny' />
+                )}
+              </div>
+            );
+          })}
+          <div ref={messagesEndRef} />
+        </div>
+      ) : (
+        <p>No messages yet. Write something!</p>
+      )}
       <form className='form' onSubmit={handleSubmit}>
         <input type='text' value={message} onChange={handleChange}></input>
         <button type='submit'>Send</button>

@@ -7,19 +7,14 @@ import { getProfile } from '../../state/actions/profileActions';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [user, loading] = useAuthState(firebase.auth());
-  const [
-    {
-      profile: { imgUrl },
-    },
-    dispatch,
-  ] = useStateValue();
+  const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     if (user) {
       dispatch({ type: 'sign_in', payload: user.uid });
       getProfile(dispatch, user.uid);
     }
-  }, [user, imgUrl]);
+  }, [user, dispatch]);
 
   return (
     <>

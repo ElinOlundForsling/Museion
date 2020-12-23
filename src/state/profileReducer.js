@@ -33,7 +33,7 @@ export const profileReducer = (state, action) => {
         profileLoading: false,
         profileError: null,
       };
-    case 'update_imgUrl':
+    case 'update_img_url':
       return {
         ...state,
         imgUrl: action.payload,
@@ -46,6 +46,17 @@ export const profileReducer = (state, action) => {
         notes: action.payload,
         profileLoading: false,
         profileError: null,
+      };
+    case 'clear_profile':
+      return {
+        firstName: '',
+        lastName: '',
+        classN: '',
+        bio: '',
+        imgUrl: '',
+        notes: [],
+        profileError: null,
+        profileLoading: false,
       };
     default:
       return { ...state };

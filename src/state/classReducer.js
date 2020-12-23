@@ -11,7 +11,6 @@ export const classReducer = (state, action) => {
     case 'get_classes':
       return { ...state, classes: action.payload, classError: '' };
     case 'get_classmates':
-      console.log(action.payload);
       return { ...state, classmates: action.payload, classError: '' };
     default:
       return { ...state };

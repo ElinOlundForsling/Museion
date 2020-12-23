@@ -25,11 +25,13 @@ const Sidebar = () => {
     },
     dispatch,
   ] = useStateValue();
+
   const signOut = () => {
     firebase
       .auth()
       .signOut()
-      .then(dispatch({ type: 'sign_out' }));
+      .then(dispatch({ type: 'sign_out' }))
+      .then(dispatch({ type: 'clear_profile' }));
   };
 
   return (

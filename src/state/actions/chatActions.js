@@ -4,7 +4,6 @@ var db = firebase.firestore();
 
 export const getChatId = async (dispatch, id1, id2) => {
   dispatch({ type: 'chat_loading' });
-  console.log(id1, id2);
   const chatChannel = await db
     .collection('users')
     .doc(id1)
@@ -43,12 +42,33 @@ export const getChatId = async (dispatch, id1, id2) => {
   }
 };
 
+export const getOtherProfile = (dispatch, id) => {
+  dispatch({ type: 'chat_loading' });
+  const db = firebase.firestore();
+  db.collection('users')
+    .doc(id)
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        dispatch({ type: 'get_other_profile', payload: doc.data() });
+      } else {
+        dispatch({ type: 'chat_error', payload: 'No profile found' });
+      }
+    })
+    .catch(function (error) {
+      dispatch({
+        type: 'chat_error',
+        payload: `Error getting profile: ${error}`,
+      });
+    });
+};
+
 export const getMessagesListener = (dispatch, chatId, status) => {
   const unsubscribe = db
     .collection('chatChannels')
     .doc(chatId)
     .collection('msg')
-    .orderBy('date', 'desc')
+    .orderBy('date')
     .onSnapshot(function (querySnapshot) {
       var data = [];
       querySnapshot.forEach(function (doc) {
@@ -64,7 +84,7 @@ export const getMessagesListener = (dispatch, chatId, status) => {
   }
 };
 
-export const sendMessage = (
+export const sendMessage = async (
   dispatch,
   senderId,
   recipientId,
@@ -73,7 +93,8 @@ export const sendMessage = (
   senderImgUrl,
   chatId,
 ) => {
-  db.collection('chatChannels')
+  await db
+    .collection('chatChannels')
     .doc(chatId)
     .collection('msg')
     .add({
@@ -85,4 +106,48 @@ export const sendMessage = (
       date: Date.now(),
     })
     .catch(error => dispatch({ type: 'chat_error', payload: error }));
+
+  await db
+    .collection('users')
+    .doc(senderId)
+    .collection('engagedChats')
+    .doc(recipientId)
+    .set(
+      {
+        lastMsg: Date.now(),
+      },
+      { merge: true },
+    );
+
+  await db
+    .collection('users')
+    .doc(recipientId)
+    .collection('engagedChats')
+    .doc(senderId)
+    .set(
+      {
+        lastMsg: Date.now(),
+      },
+      { merge: true },
+    );
+};
+
+export const getLatestMessages = async (dispatch, status, id) => {
+  const unsubscribe = await db
+    .collection('users')
+    .document(id)
+    .collection('engagedChats')
+    .orderBy('lastMsg')
+    .onSnapshot(function (querySnapshot) {
+      var data = [];
+      querySnapshot.forEach(function (doc) {
+        data.push(doc.data());
+      });
+      if (status !== 'unsubscribe') {
+        dispatch({ type: 'chat_messages', payload: data });
+      }
+    });
+  if (status === 'unsubscribe') {
+    unsubscribe();
+  }
 };

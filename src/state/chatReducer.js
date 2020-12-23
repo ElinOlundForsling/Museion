@@ -3,6 +3,7 @@ export const initialChatState = {
   messages: [],
   chatError: null,
   chatLoading: false,
+  profile: { firstName: '', lastName: '', imgUrl: '', bio: '' },
 };
 
 export const chatReducer = (state, action) => {
@@ -15,6 +16,13 @@ export const chatReducer = (state, action) => {
       return {
         ...state,
         chatId: action.payload,
+        chatLoading: false,
+        chatError: null,
+      };
+    case 'get_other_profile':
+      return {
+        ...state,
+        profile: action.payload,
         chatLoading: false,
         chatError: null,
       };

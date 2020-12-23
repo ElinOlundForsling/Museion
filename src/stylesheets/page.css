@@ -16,6 +16,11 @@
   flex-direction: row;
 }
 
+.page-content-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .page-article {
   display: flex;
   flex-direction: column;
