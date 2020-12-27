@@ -145,6 +145,7 @@ export const getLatestMessages = async (dispatch, status, id) => {
       });
       if (status !== 'unsubscribe') {
         dispatch({ type: 'chat_messages', payload: data });
+        // do this
       }
     });
   if (status === 'unsubscribe') {
