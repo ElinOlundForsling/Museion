@@ -133,21 +133,23 @@ export const sendMessage = async (
 };
 
 export const getLatestMessages = async (dispatch, status, id) => {
+  const data = [];
   const unsubscribe = await db
     .collection('users')
     .document(id)
     .collection('engagedChats')
     .orderBy('lastMsg')
     .onSnapshot(function (querySnapshot) {
-      var data = [];
       querySnapshot.forEach(function (doc) {
         data.push(doc.data());
       });
       if (status !== 'unsubscribe') {
-        dispatch({ type: 'chat_messages', payload: data });
-        // do this
+        // dispatch({ type: 'chat_messages', payload: data });
       }
     });
+  data.forEach(chat => {
+    db.collection('chatChannels');
+  });
   if (status === 'unsubscribe') {
     unsubscribe();
   }
