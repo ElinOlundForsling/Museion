@@ -44,7 +44,6 @@ export const getChatId = async (dispatch, id1, id2) => {
 
 export const getOtherProfile = (dispatch, id) => {
   dispatch({ type: 'chat_loading' });
-  const db = firebase.firestore();
   db.collection('users')
     .doc(id)
     .get()
@@ -61,6 +60,23 @@ export const getOtherProfile = (dispatch, id) => {
         payload: `Error getting profile: ${error}`,
       });
     });
+};
+
+const getProfileById = async (dispatch, id) => {
+  const profile = await db
+    .collection('users')
+    .doc(id)
+    .get()
+    .catch(function (error) {
+      dispatch({
+        type: 'chat_error',
+        payload: `Error getting profile: ${error}`,
+      });
+    });
+  if (profile) {
+    const profileData = profile.data();
+    return { ...profileData, id: profile.id };
+  }
 };
 
 export const sendMessage = async (
@@ -138,7 +154,7 @@ export const getLatestMessagesListener = (dispatch, status, id) => {
     .collection('users')
     .doc(id)
     .collection('engagedChats')
-    .orderBy('lastMsg')
+    .orderBy('lastMsg', 'desc')
     .onSnapshot(
       querySnapshot => {
         if (status === 'subscribe') {
@@ -146,7 +162,10 @@ export const getLatestMessagesListener = (dispatch, status, id) => {
           querySnapshot.forEach(doc => {
             const latestMsg = doc.data();
             if (latestMsg.lastMsg) {
-              latestChannels.push(latestMsg.channelId);
+              latestChannels.push({
+                channelId: latestMsg.channelId,
+                userId: doc.id,
+              });
             }
           });
           getLatestMessages(dispatch, latestChannels);
@@ -164,24 +183,37 @@ export const getLatestMessagesListener = (dispatch, status, id) => {
   }
 };
 
-const getLatestMessages = async (dispatch, channelIds) => {
-  const msgs = channelIds.forEach(id => {
-    db.collection('chatChannels')
-      .doc(id)
-      .collection('msg')
-      .orderBy('date', 'desc')
-      .limit(1)
-      .get()
-      .then(msg => {
-        const message = msg.docs.map(doc => doc.data());
-        console.log(message[0]);
-        dispatch({ type: 'latest_messages', payload: message[0] });
-      })
-      .catch(error =>
-        dispatch({
-          type: 'chat_error',
-          payload: `Error fetching latest messages: ${error}`,
-        }),
-      );
-  });
+const getLatestMessages = async (dispatch, channels) => {
+  try {
+    dispatch({ type: 'chat_loading' });
+    const latest = await channels.map(async ids => {
+      const profile = await getProfileById(dispatch, ids.userId);
+      const msg = await db
+        .collection('chatChannels')
+        .doc(ids.channelId)
+        .collection('msg')
+        .orderBy('date', 'desc')
+        .limit(1)
+        .get();
+
+      const message = msg.docs.map(doc => {
+        return { ...doc.data(), id: doc.id };
+      });
+      const obj = {
+        text: message[0].text,
+        id: message[0].id,
+        recipientName: profile.firstName,
+        recipientImgUrl: profile.imgUrl,
+      };
+      return obj;
+    });
+    await Promise.all(latest).then(yay =>
+      dispatch({ type: 'latest_messages', payload: yay }),
+    );
+  } catch (error) {
+    dispatch({
+      type: 'chat_error',
+      payload: `Error fetching latest messages: ${error}`,
+    });
+  }
 };

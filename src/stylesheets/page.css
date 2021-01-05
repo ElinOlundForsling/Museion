@@ -41,3 +41,19 @@
 .page-sidebar {
   flex: 1;
 }
+
+.chat-table {
+  border: 0px;
+  margin: 0px;
+  border-spacing: 0px;
+  width: 100%;
+}
+
+.chat-table th {
+  padding-bottom: 15px;
+}
+
+.chat-table-row {
+  border-bottom: 1px #f2f2f2 solid;
+  font-size: 0.6rem;
+}

@@ -35,6 +35,7 @@ export const chatReducer = (state, action) => {
         chatError: null,
       };
     case 'latest_messages':
+      console.log('Payload: ', action.payload);
       return {
         ...state,
         latestMessages: action.payload,

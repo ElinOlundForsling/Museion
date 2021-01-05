@@ -17,7 +17,7 @@ const Classmates = () => {
     if (classN) {
       getClassmates(dispatch, classN);
     }
-  }, [classN]);
+  }, [classN, dispatch]);
 
   return (
     <Widget heading='Classmates' className='classmates-component'>
