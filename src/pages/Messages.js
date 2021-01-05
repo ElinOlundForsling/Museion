@@ -3,7 +3,11 @@ import Page from '../components/layout/Page';
 import Chat from '../components/layout/Chat';
 import { useStateValue } from '../state/state';
 import { useParams } from 'react-router-dom';
-import { getChatId, getOtherProfile } from '../state/actions/chatActions';
+import {
+  getChatId,
+  getLatestMessagesListener,
+  getOtherProfile,
+} from '../state/actions/chatActions';
 
 const Messages = () => {
   const [
@@ -16,11 +20,18 @@ const Messages = () => {
 
   const userId = useParams().id;
   useEffect(() => {
+    getOtherProfile(dispatch, userId);
     if (authId && userId) {
       getChatId(dispatch, authId, userId);
     }
-    getOtherProfile(dispatch, userId);
-  }, [authId]);
+
+    if (authId) {
+      getLatestMessagesListener(dispatch, 'subscribe', authId);
+      return function cleanup() {
+        getLatestMessagesListener(dispatch, 'unsubscribe', authId);
+      };
+    }
+  }, [authId, dispatch]);
 
   return (
     <Page heading='Messages'>

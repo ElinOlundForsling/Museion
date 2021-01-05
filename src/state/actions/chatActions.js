@@ -63,27 +63,6 @@ export const getOtherProfile = (dispatch, id) => {
     });
 };
 
-export const getMessagesListener = (dispatch, chatId, status) => {
-  const unsubscribe = db
-    .collection('chatChannels')
-    .doc(chatId)
-    .collection('msg')
-    .orderBy('date')
-    .onSnapshot(function (querySnapshot) {
-      var data = [];
-      querySnapshot.forEach(function (doc) {
-        data.push(doc.data());
-      });
-      if (status !== 'unsubscribe') {
-        dispatch({ type: 'chat_messages', payload: data });
-      }
-    });
-
-  if (status === 'unsubscribe') {
-    unsubscribe();
-  }
-};
-
 export const sendMessage = async (
   dispatch,
   senderId,
@@ -132,26 +111,77 @@ export const sendMessage = async (
     );
 };
 
-export const getLatestMessages = async (dispatch, status, id) => {
-  const data = [];
-  const unsubscribe = await db
-    .collection('users')
-    .document(id)
-    .collection('engagedChats')
-    .orderBy('lastMsg')
+export const getMessagesListener = (dispatch, chatId, status) => {
+  const unsubscribe = db
+    .collection('chatChannels')
+    .doc(chatId)
+    .collection('msg')
+    .orderBy('date')
     .onSnapshot(function (querySnapshot) {
+      const data = [];
       querySnapshot.forEach(function (doc) {
         data.push(doc.data());
       });
       if (status !== 'unsubscribe') {
-        // dispatch({ type: 'chat_messages', payload: data });
-        // more code
+        dispatch({ type: 'chat_messages', payload: data });
       }
     });
-  data.forEach(chat => {
-    db.collection('chatChannels');
-  });
+
   if (status === 'unsubscribe') {
     unsubscribe();
   }
+};
+
+export const getLatestMessagesListener = (dispatch, status, id) => {
+  console.log('getLatestMessagesListener status: ', status, ' and Id: ', id);
+  const unsubscribe = db
+    .collection('users')
+    .doc(id)
+    .collection('engagedChats')
+    .orderBy('lastMsg')
+    .onSnapshot(
+      querySnapshot => {
+        if (status === 'subscribe') {
+          const latestChannels = [];
+          querySnapshot.forEach(doc => {
+            const latestMsg = doc.data();
+            if (latestMsg.lastMsg) {
+              latestChannels.push(latestMsg.channelId);
+            }
+          });
+          getLatestMessages(dispatch, latestChannels);
+        }
+      },
+      error =>
+        dispatch({
+          type: 'chat_error',
+          payload: `Error fetching latest messages: ${error}`,
+        }),
+    );
+
+  if (status === 'unsubscribe') {
+    unsubscribe();
+  }
+};
+
+const getLatestMessages = async (dispatch, channelIds) => {
+  const msgs = channelIds.forEach(id => {
+    db.collection('chatChannels')
+      .doc(id)
+      .collection('msg')
+      .orderBy('date', 'desc')
+      .limit(1)
+      .get()
+      .then(msg => {
+        const message = msg.docs.map(doc => doc.data());
+        console.log(message[0]);
+        dispatch({ type: 'latest_messages', payload: message[0] });
+      })
+      .catch(error =>
+        dispatch({
+          type: 'chat_error',
+          payload: `Error fetching latest messages: ${error}`,
+        }),
+      );
+  });
 };

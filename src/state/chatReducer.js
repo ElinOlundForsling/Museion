@@ -1,6 +1,7 @@
 export const initialChatState = {
   chatId: '',
   messages: [],
+  latestMessages: [],
   chatError: null,
   chatLoading: false,
   profile: { firstName: '', lastName: '', imgUrl: '', bio: '' },
@@ -30,6 +31,13 @@ export const chatReducer = (state, action) => {
       return {
         ...state,
         messages: action.payload,
+        chatLoading: false,
+        chatError: null,
+      };
+    case 'latest_messages':
+      return {
+        ...state,
+        latestMessages: action.payload,
         chatLoading: false,
         chatError: null,
       };
